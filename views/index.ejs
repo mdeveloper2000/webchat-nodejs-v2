@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/font/bootstrap-icons.css" />
+    <script src="/js/bootstrap.js"></script>
+    <title>Webchat - <%= title %></title>
+</head>
+
+<body class="bg-light">
+    
+    <div class="container m-5 p-5">
+        <div class="row">
+            <div class="col-6">
+                <h6 class="text-center p-3 mb-5 text-bg-dark rounded">
+                    <i class="bi bi-chat-dots-fill"></i> Salas disponíveis
+                </h6>
+                <% suggestions.forEach(suggestion => { %>
+                    <a class="btn btn-info fw-bold m-2 p-2 w-25 border-primary border-2" href="/room/<%= suggestion.name %>">
+                        <%= suggestion.name %>
+                    </a>
+                <% }) %>
+                <div class="row ms-3 me-3 mt-5">
+                    <h6 class="text-center p-3 text-bg-dark rounded" onclick="openModal();">
+                        <i class="bi bi-search"></i> Pesquisar por apelidos
+                    </h6>
+                </div>
+            </div>
+            <div class="col-6 rounded-start-5 text-bg-primary p-5 shadow fw-bold">
+                <h1 class="mt-5">
+                    <i class="bi bi-chat-fill"></i> Webchat NodeJS
+                </h1>
+                <h3 class="mt-5">
+                    <i class="bi bi-globe-americas"></i> The best chat from the Internet!
+                </h3>
+                <h5 class="mt-5">
+                    <i class="bi bi-people-fill"></i> For here you can find nice people to chat about any subject. Or don't...
+                </h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-lg" data-bs-backdrop="static" tabindex="-1" id="searchModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pesquisa por apelidos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="nicknameSearch" placeholder="Apelido" maxlength="20" />
+                    <div class="search_results"></div>
+                    <div class="alert alert-danger mt-3" style="display: none;">
+                        <i class="bi bi-exclamation-triangle-fill"></i> <span class="message"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">                    
+                    <button type="button" class="btn btn-primary" onclick="search()">
+                        <i class="bi bi-search"></i> Pesquisar
+                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="dismiss">
+                        <i class="bi bi-x"></i> Cancelar
+                    </button>                    
+                    <div class="container mt-3">                
+                        <div class="alert alert-danger" role="alert" style="display: none;">
+                            <i class="bi bi-info-circle-fill"></i> <span id="message"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/assets/search.js"></script>
+
+</body>
+
+</html>
